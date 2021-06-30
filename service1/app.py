@@ -39,7 +39,10 @@ class TodoList(Resource):
 
     def post(self):
         args = parser.parse_args()
-        todo_id = int(max(TODOS.keys()).lstrip('todo')) + 1
+        if len(TODOS.keys()) == 0:
+            todo_id = 0
+        else:
+            todo_id = int(max(TODOS.keys()).lstrip('todo')) + 1
         todo_id = 'todo%i' % todo_id
         TODOS[todo_id] = {'task': args['task']}
         return TODOS[todo_id], 201
